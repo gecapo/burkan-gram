@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="card card-container">
+    <img
+      id="profile-img"
+      class="profile-img-card"
+      src="https://previews.123rf.com/images/frimufilms/frimufilms1512/frimufilms151200028/48845524-baby-animal-round-icon-lion-character-design-colorful-vector-illustration-.jpg"
+    />
+    <p id="profile-name" class="profile-name-card"></p>
+    <form class="form-signin" (ngSubmit)="doLogin(f)" #f="ngForm">
+      <span id="reauth-email" class="reauth-email"></span>
+      <input
+        type="email"
+        id="inputEmail"
+        class="form-control"
+        placeholder="Email address"
+        ngModel name="email"
+        required
+        autofocus
+      />
+      <input
+        type="password"
+        id="inputPassword"
+        class="form-control"
+        placeholder="Password"
+        ngModel name="password"
+        required
+      />
+      <div id="remember" class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me" /> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+        Sign in
+      </button>
+    </form>
+    <!-- /form -->
+    <a href="#" [routerLink]="['/signup']" class="forgot-password">Register</a>
+    <a href="#" class="forgot-password">
+      Forgot the password?
+    </a>
+
+  </div>
+  <!-- /card-container -->
+</div>
+<!-- /container -->
