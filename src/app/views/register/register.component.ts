@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import * as firebase from "firebase";
+import { NotificationService } from "src/app/service/notification/notification.service";
 
 @Component({
   selector: "app-register",
@@ -10,7 +11,7 @@ import * as firebase from "firebase";
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private notifier: NotificationService) {}
 
   doSignUp(form: NgForm) {
     const data = form.value;
@@ -35,10 +36,8 @@ export class RegisterComponent implements OnInit {
           });
       })
       .catch(err => {
-        console.log("[ERROR]:");
-        console.log(err);
+        this.notifier.display(new Date(), "error", err);
       });
   }
-
   ngOnInit() {}
 }

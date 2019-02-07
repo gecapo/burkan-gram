@@ -7,6 +7,7 @@ import * as firebase from "firebase";
   styleUrls: ["./header.component.css"]
 })
 export class HeaderComponent implements OnInit {
+  // TODO: Move to userservice
   isLoggedIn: boolean = false;
 
   ngOnInit() {
