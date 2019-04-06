@@ -16,6 +16,7 @@ import { RouteGuard } from "./service/route/route-guard";
 import { NotificationService } from "./service/notification/notification.service";
 import { FireBaseService } from "./service/firebase/firebase.service";
 import { UserService } from "./service/user/user.service";
+import { PostComponent } from "./views/post/post.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UserService } from "./service/user/user.service";
     MeComponent,
     RegisterComponent,
     LoginComponent,
-    NotificationComponent
+    NotificationComponent,
+    PostComponent
     // AngularFireModule.initializeApp(environment.firebase)
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],

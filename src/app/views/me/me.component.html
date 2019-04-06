@@ -1,11 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 img">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"
-        alt=""
-        class="img-rounded"
-      />
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"
+        alt="" class="img-rounded" />
     </div>
     <div class="col-md-6 details">
       <blockquote>
@@ -13,8 +10,7 @@
         <small>
           <cite title="Source Title">
             Chicago, United States of America
-            <i class="icon-map-marker"></i></cite
-        ></small>
+            <i class="icon-map-marker"></i></cite></small>
       </blockquote>
       <p>
         {{ email }}<br />
@@ -25,15 +21,9 @@
         LogOut
       </button>
     </div>
+    <input type="file" (change)="onFileSelection($event)" accept=".png, .jpeg, .jpg" style="margin: auto; width: 50%;" />
   </div>
-  <div class="row">
-    <div class="col-md-6">
-      <input
-        type="file"
-        (change)="onFileSelection($event)"
-        placeholder="Upload a file"
-        accept=".png, .jpeg, .jpg"
-      />
-    </div>
+  <br><br><br>
+  <div>
+    <app-post *ngFor="let post of userPostsList" [postData]="post.data"></app-post>
   </div>
-</div>

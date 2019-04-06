@@ -5,14 +5,23 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class FireBaseService {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
+
+
+  getUserPosts(uid: string): any {
+    return firebase.database().ref("myposts").child(uid);
+  }
+
+  getAllPosts(): any {
+    return firebase.database().ref("allposts");
+  }
 
   uploadFile(file) {
     const fileName = uuid();
     const uploadPath = firebase
       .storage()
       .ref()
-      .child("image/" + fileName + ".jpg");
+      .child("image/" + fileName);
 
     const uploadTask = uploadPath.put(file);
 
@@ -39,20 +48,34 @@ export class FireBaseService {
 
   handleUploadedFile(data) {
     const user = this.userService.get();
-    const imgKey = firebase
+    const imgPrivateKey = firebase
       .database()
       .ref()
       .child("myposts/")
       .push().key;
+    const imgPrivatePath = "/myposts/" + user.uid + "/" + imgPrivateKey;
+
+    const imgPublicKey = firebase
+      .database()
+      .ref()
+      .child("allposts/")
+      .push().key;
+    const imgPublicPath = "/allposts/" + imgPublicKey;
 
     const imgData = {
       fileUrl: data.fileUrl,
       name: data.fileName,
+
+      user: user,
+      likes: 0,
+      description: "",
+
       _dateCreated: new Date().toString()
     };
 
     const updates = {};
-    updates["/mypost/" + user.uid + "/" + imgKey] = imgData;
+    updates[imgPrivatePath] = imgData;
+    updates[imgPublicPath] = imgData;
 
     return firebase
       .database()

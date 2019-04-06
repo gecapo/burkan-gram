@@ -17,12 +17,12 @@ export class RouteGuard implements CanActivate {
       return true;
     } else {
       // TODO : Sometimes when logged in firebase.auth().currentUser returns false
-      // debugger;
-      // this.router.navigate(["/signin"], {
-      //   queryParams: {
-      //     return: state.url
-      //   }
-      // });
+      debugger;
+      this.router.navigate(["/signin"], {
+        queryParams: {
+          return: state.url
+        }
+      });
       return false;
     }
   }

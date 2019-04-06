@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import * as firebase from "firebase";
 import { UserService } from "src/app/service/user/user.service";
 import { Router } from "@angular/router";
@@ -10,21 +10,30 @@ import { NotificationService } from "src/app/service/notification/notification.s
   templateUrl: "./me.component.html",
   styleUrls: ["./me.component.css"]
 })
-export class MeComponent implements OnInit {
-  username: String;
-  email: String;
+export class MeComponent implements OnInit, OnDestroy {
+  public username: String;
+  public email: String;
+
+  public userPostsList: any = [];
+  public userPostsRef: any;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private fbs: FireBaseService,
     private notifier: NotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const userdata = this.userService.get();
     this.username = userdata.username;
     this.email = userdata.email;
+
+    const user = firebase.auth().currentUser;
+    this.userPostsRef = this.fbs.getUserPosts(user.uid);
+    this.userPostsRef.on("child_added", data => {
+      this.userPostsList.push({ key: data.key, data: data.val() });
+    });
   }
 
   onFileSelection(eventfiles) {
@@ -46,6 +55,10 @@ export class MeComponent implements OnInit {
           this.notifier.display(new Date(), "error", err);
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.userPostsRef.off();
   }
 
   logOut() {
